@@ -10,5 +10,13 @@ object Main {
       val four = List(1)
       
       println(lists.lsort(List(one, two, three, four)))
+      
+      val logic = new Logic()
+      
+      def f(a : Boolean, b : Boolean) : Boolean = {
+          logic.and(a, logic.or(a, b))
+        
+      }
+       logic.table2(f)
   }
 }
