@@ -52,11 +52,11 @@ class Logic {
     }
     
     def treeBuilder(pq : PriorityQueue[TreeNode[Char]]) : TreeNode[Char] = {
-          def TERMINAL = '?'
+          def NON_TERMINAL = '?'
           if(pq.length == 1) pq.head
           else {
             val (first, second) = (pq.dequeue(), pq.dequeue())
-            val fuse = new TreeNode(TERMINAL, 
+            val fuse = new TreeNode(NON_TERMINAL, 
                 first.getPriority() + second.getPriority(), first, second)
             treeBuilder(pq.+=(fuse))
           }
