@@ -156,6 +156,36 @@ class Lists
         else rotateHelper(n + xs.length, xs, List())
     }
     
+    def msort[T](xs : List[T], less : (T, T) => Boolean) : List[T] = {
+        
+        def merge[T](xs : List[T], ys : List[T], less : (T, T) => Boolean) : List[T] = {
+                (xs, ys) match {
+                  case (Nil, Nil) => Nil
+                  case (Nil, ys) => ys
+                  case (xs, Nil) => xs
+                  case (x :: xs1, y :: ys1) =>
+                        if(less(x, y)) x :: merge(xs1, ys, less)
+                        else y :: merge(xs, ys1, less)
+                }
+         
+         }
+        
+         val mid = xs.length / 2
+         if(mid == 0) xs
+         else
+         {
+          val (one, two) = xs.splitAt(mid)
+          merge(msort(one, less), msort(two, less), less) 
+          
+        }
+    }
+      
+    
+    def lsort(xs : List[List[Int]]) : List[List[Int]] = {
+      
+        msort[List[Int]](xs, (x, y) => x.length < y.length)      
+    }
+    
     
 
 }

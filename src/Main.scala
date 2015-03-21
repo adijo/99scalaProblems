@@ -4,6 +4,11 @@ object Main {
   def main(args : Array[String]) : Unit = {
       val lists = new Lists()
       
-      println(lists.rotate(-2, List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)))    
+      val one = List(1, 2, 3)
+      val two = List(4, 66, 7, 8)
+      val three = List(3, 45, 7, 87)
+      val four = List(1)
+      
+      println(lists.lsort(List(one, two, three, four)))
   }
 }
