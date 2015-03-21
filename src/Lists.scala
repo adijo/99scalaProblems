@@ -81,7 +81,7 @@ class Lists
               else last :: compressHelper(xs.tail, xs.head)
           
         }
-      compressHelper(xs, 'z').tail
+      compressHelper(xs, '?').tail
       
     }
     
