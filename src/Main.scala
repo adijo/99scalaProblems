@@ -2,21 +2,9 @@
 object Main {
  
   def main(args : Array[String]) : Unit = {
-      val lists = new Lists()
-      
-      val one = List(1, 2, 3)
-      val two = List(4, 66, 7, 8)
-      val three = List(3, 45, 7, 87)
-      val four = List(1)
-      
-      println(lists.lsort(List(one, two, three, four)))
-      
       val logic = new Logic()
-      
-      def f(a : Boolean, b : Boolean) : Boolean = {
-          logic.and(a, logic.or(a, b))
-        
-      }
-       logic.table2(f)
+      val huffVals = List(('a', 45), ('b', 13), ('c', 12), ('d', 16), ('e', 9), ('f', 5))
+      val huffCodings = logic.huffman(huffVals)
+      println(huffCodings)
   }
 }

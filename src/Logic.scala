@@ -1,3 +1,6 @@
+import scala.collection.mutable.PriorityQueue;
+import scala.collection.mutable.HashMap;
+
 class Logic {
 
     def and(a : Boolean, b : Boolean) : Boolean = a && b
@@ -26,6 +29,41 @@ class Logic {
       
     }
     
+    // TODO: Make empty node a singleton object using case classes.
     
+    class TreeNode[T](value : T, priority : Int, left : TreeNode[T], right : TreeNode[T]) {
+        def getVal() : T = value
+        def getPriority() : Int = priority
+        def isLeaf() : Boolean = (left == null && right == null)
+        def getLeft() : TreeNode[T] = left
+        def getRight() : TreeNode[T] = right
+    }
+    
+    def huffman(xs : List[(Char, Int)]) : List[(Char, String)] = {
+        def order(a : (Char, Int), b : (Char, Int)) : Int = a._2
+        val nodes = xs.map(x => new TreeNode[Char](x._1, x._2, null, null))
+        val pq = PriorityQueue.empty[TreeNode[Char]](Ordering.by { node : TreeNode[Char] => node.getPriority() }).reverse
+        nodes.foreach { x => pq.+=(x) }
+        val root = treeBuilder(pq)
+        populate(root, "").sortWith((a, b) => a._2.length() < b._2.length())
+        
+    }
+    
+    def treeBuilder(pq : PriorityQueue[TreeNode[Char]]) : TreeNode[Char] = {
+          def TERMINAL = '?'
+          if(pq.length == 1) pq.head
+          else {
+            val (first, second) = (pq.dequeue(), pq.dequeue())
+            val fuse = new TreeNode(TERMINAL, first.getPriority() + second.getPriority(), first, second)
+            treeBuilder(pq.+=(fuse))
+          }
+    }
+    
+    def populate(node : TreeNode[Char],  path : String) : List[(Char, String)] = {
+        if(node.isLeaf()) List((node.getVal(), path))
+        else populate(node.getLeft(), path + "0") ++ populate(node.getRight(), path + "1")
+    }
+    
+     
     
 }
