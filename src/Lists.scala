@@ -119,5 +119,43 @@ class Lists
     }
     
     
+    def drop(n : Int, xs : List[Int]) : List[Int] = {
+        
+         def dropHelper(n : Int, currVal : Int, xs : List[Int]) : List[Int] = {
+               if(xs.length == 0) List()
+               else if(currVal == 0) dropHelper(n, n, xs.tail)
+               else xs.head :: dropHelper(n, currVal - 1, xs.tail)
+           
+         }
+      dropHelper(n - 1, n - 1, xs)
+    }
+    
+    def slice(start : Int, end : Int, xs : List[Int]) : List[Int] = {
+        
+        // Precondition check.
+        require(end >= start)
+        
+        def sliceHelper(start : Int, end : Int, curr : Int, xs : List[Int]) : List[Int] = {
+            if(curr == start) xs.head :: sliceHelper(start, end, curr + 1, xs.tail)
+            else if(curr == end) List(xs.head)
+            else if(curr > end) List()
+            else sliceHelper(start, end, curr + 1, xs.tail)
+          
+        }
+        sliceHelper(start, end, 0, xs) 
+    }
+    
+    def rotate(n : Int, xs : List[Int]) : List[Int] = {
+      
+        def rotateHelper(n : Int, xs : List[Int], taken : List[Int]) : List[Int] = {
+              if(n == 0) xs ++ reverse(taken)
+              else rotateHelper(n - 1, xs.tail, xs.head :: taken)
+        }
+        
+        if(n >= 0) rotateHelper(n, xs, List())
+        else rotateHelper(n + xs.length, xs, List())
+    }
+    
+    
 
 }
