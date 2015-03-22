@@ -36,6 +36,36 @@ class Trees {
     
   }
   
+  def internalList[T](tree : Tree[T]) : List[Tree[T]] = {
+    
+      tree match {
+        case End => List()
+        case node : Node[T] =>
+          if(node.isLeaf()) List()
+          else node :: (leafList(node.getLeft()) ++ leafList(node.getRight()))
+        
+      }
+    
+  }
   
   
+  def symmetric[T](tree : Tree[T]) : Boolean = {
+
+    def symHelper(one : Tree[T], two : Tree[T]) : Boolean = {
+          (one, two) match {
+            case (End, End) => true
+            case (End, _ : Node[T]) => false
+            case (_ : Node[T], End) => false
+            case (one : Node[T], two : Node[T]) => symHelper(one.getLeft(), two.getRight()) && 
+                                                   symHelper(one.getRight(), two.getLeft())
+          }
+      }
+    
+      tree match {
+        case End => true
+        case node : Node[T] => symHelper(node.getLeft(), node.getRight())
+      }
+  }  
+  
+
 }
