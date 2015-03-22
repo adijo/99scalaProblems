@@ -1,5 +1,4 @@
 import scala.collection.mutable.PriorityQueue;
-import scala.collection.mutable.HashMap;
 
 class Logic {
 
@@ -40,25 +39,25 @@ class Logic {
         def getRight() : TreeNode[T] = right
     }
     
+    
     def huffman(xs : List[(Char, Int)]) : List[(Char, String)] = {
-        def order(a : (Char, Int), b : (Char, Int)) : Int = a._2
         val nodes = xs.map(x => new TreeNode[Char](x._1, x._2, null, null))
         val pq = PriorityQueue.empty[TreeNode[Char]](
             Ordering.by { node : TreeNode[Char] => node.getPriority() }).reverse
         nodes.foreach { x => pq.+=(x) }
-        val root = treeBuilder(pq)
+        val root = builder(pq)
         populate(root, "").sortWith((a, b) => a._2.length() < b._2.length())
         
     }
     
-    def treeBuilder(pq : PriorityQueue[TreeNode[Char]]) : TreeNode[Char] = {
+    def builder(pq : PriorityQueue[TreeNode[Char]]) : TreeNode[Char] = {
           def NON_TERMINAL = '?'
           if(pq.length == 1) pq.head
           else {
             val (first, second) = (pq.dequeue(), pq.dequeue())
             val fuse = new TreeNode(NON_TERMINAL, 
                 first.getPriority() + second.getPriority(), first, second)
-            treeBuilder(pq.+=(fuse))
+            builder(pq.+=(fuse))
           }
     }
     
