@@ -65,7 +65,38 @@ class Trees {
         case End => true
         case node : Node[T] => symHelper(node.getLeft(), node.getRight())
       }
-  }  
+  }
   
-
+  
+  
+  /*
+   *  Returns a forest of completely balanced binary trees. 
+   */
+  
+  def cBalanced[T](num : Int, value : T) : List[Tree[T]] = {
+         
+      if(num == 1) List(new Node(value, End, End))
+      else if(num == 0) List(End)
+      else {
+        if(num % 2 != 0) {
+            val nodes = num - 1  
+            for(left <- cBalanced[T](nodes / 2, value); right <- cBalanced[T](nodes / 2, value)) 
+              yield new Node[T](value, left, right)
+        }
+        
+        else {
+          val nodes = num - 1
+          val one = for(left <- cBalanced[T](nodes / 2, value); right <- cBalanced[T]((nodes - nodes / 2), value)) 
+              yield new Node[T](value, left, right)
+            
+          val two = for(left <- cBalanced[T]((nodes - nodes / 2), value); right <- cBalanced[T](nodes / 2, value)) 
+              yield new Node[T](value, left, right)
+              
+              one ++ two
+        }
+        
+      }
+  }
+  
+ 
 }
