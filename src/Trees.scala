@@ -86,13 +86,12 @@ class Trees {
         
         else {
           val nodes = num - 1
-          val one = for(left <- cBalanced[T](nodes / 2, value); right <- cBalanced[T]((nodes - nodes / 2), value)) 
+          val rightOdd = for(left <- cBalanced[T](nodes / 2, value); right <- cBalanced[T]((nodes - nodes / 2), value)) 
               yield new Node[T](value, left, right)
             
-          val two = for(left <- cBalanced[T]((nodes - nodes / 2), value); right <- cBalanced[T](nodes / 2, value)) 
+          val leftOdd = for(left <- cBalanced[T]((nodes - nodes / 2), value); right <- cBalanced[T](nodes / 2, value)) 
               yield new Node[T](value, left, right)
-              
-              one ++ two
+              rightOdd ++ leftOdd
         }
         
       }
