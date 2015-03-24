@@ -7,6 +7,7 @@ class Trees {
     def getLeft() : Tree[T] = left
     def getRight() : Tree[T] = right
     def isLeaf() : Boolean = (left == End && right == End)
+    def getValue() : T = value
   }
   case object End extends Tree[Nothing] {
     override def toString = "."
@@ -48,6 +49,19 @@ class Trees {
     
   }
   
+  def atLevel[T](tree : Tree[T], lvl : Int) : List[T] = {
+        def atLvlHelper[T](tree : Tree[T], lvl : Int, currLvl : Int) : List[T] = {
+          tree match {
+               
+                case End => throw new Exception("Illegal lvl.")
+                case node : Node[T] =>
+                  if(currLvl == lvl) List(node.getValue())
+                  else atLvlHelper(node.getLeft(), lvl, currLvl + 1) ++ atLvlHelper(node.getRight(), lvl, currLvl + 1)
+              }
+        }
+    atLvlHelper(tree, lvl, 0)  
+  }
+  
   
   def symmetric[T](tree : Tree[T]) : Boolean = {
 
@@ -66,8 +80,6 @@ class Trees {
         case node : Node[T] => symHelper(node.getLeft(), node.getRight())
       }
   }
-  
-  
   
   /*
    *  Returns a forest of completely balanced binary trees. 
@@ -96,6 +108,4 @@ class Trees {
         
       }
   }
-  
- 
 }
