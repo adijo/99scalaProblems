@@ -59,6 +59,19 @@ class Lists
       
     }
     
+    def split(xs : List[Int], x : Int) : (List[Int], List[Int]) = {
+       
+        def splitHelper(xs : List[Int], x : Int, curr : Int, acc : List[Int]) : (List[Int], List[Int]) = {
+              if(xs == Nil) throw new Exception("Not valid!")
+              else {
+                  if(curr == x) (reverse(xs.head :: acc), xs.tail)
+                  else splitHelper(xs.tail, x, curr + 1, xs.head :: acc)
+              }
+        }
+        if(x == 0) (List(), xs)
+        else splitHelper(xs, x, 1, List())      
+    }
+    
     def flatten(xs : List[Any]) : List[Any] = {
       
       if(xs.length == 0) xs      
