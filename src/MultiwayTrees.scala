@@ -7,9 +7,6 @@ class MultiwayTrees
 }
   
     def nodeCount[T](mtree : MTree[T]) : Int = {
-        if(mtree.children.length == 0) 1
-        else 1 + (mtree.children.map { x => nodeCount(x) }.sum)
+        1 + (mtree.children.map { x => nodeCount(x) }.sum)
     }
-    
-
 }
