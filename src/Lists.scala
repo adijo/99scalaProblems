@@ -52,6 +52,16 @@ class Lists
         revHelper(xs, List())
     }
     
+    def insertAt(x : Int, pos : Int, xs : List[Int]) : List[Int] = {
+      
+        def insertAtHelper(xs : List[Int], currPos : Int) : List[Int] = {
+            if(currPos == pos) x :: xs
+            else xs.head :: insertAtHelper(xs.tail, currPos + 1)
+          
+        }
+        insertAtHelper(xs, 0)
+    } 
+    
     
     def isPalindrome(xs : List[Int]) : Boolean = {
       
