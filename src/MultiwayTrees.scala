@@ -7,17 +7,17 @@ class MultiwayTrees
 }
   
     def nodeCount[T](mtree : MTree[T]) : Int = {
-        1 + (mtree.children.map { x => nodeCount(x) }.sum)
+        1 + mtree.children.map { x => nodeCount(x) }.sum
     }
     
     def internalPathLength[T](mtree : MTree[T]) : Int = {
         
         def internalDepth[T](mtree : MTree[T], currDepth : Int) : Int = {
-            if(mtree.children.isEmpty) currDepth
-          else currDepth + mtree.children.map { x => internalDepth(x, currDepth + 1) }.sum
+            currDepth + mtree.children.map { x => internalDepth(x, currDepth + 1) }.sum
         }
       internalDepth(mtree, 0)
     }
+    
     
     def test() = {
       val g = new MTree('g', List())
