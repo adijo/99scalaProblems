@@ -44,6 +44,12 @@ class Lists
         }
     }    
    
+    def range(start : Int, end : Int) : List[Int] = {
+        if(start > end) List()
+        else start :: range(start + 1, end)
+      
+    } 
+   
     def reverse(xs : List[Int]) : List[Int] = {
         def revHelper(xs : List[Int], revd : List[Int]) : List[Int] = {
             if(xs == Nil) revd
