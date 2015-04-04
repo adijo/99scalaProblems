@@ -17,17 +17,12 @@ class Lists
         def rev(xs : List[Int], revd : List[Int]) : List[Int] = {
             if(xs == Nil) revd
             else rev(xs.tail, xs.head :: revd)
-          
         }
-        
         xs match {
           case Nil => throw new Exception("Not a valid list")
           case x :: Nil => throw new Exception("Not a valid list")
           case xs => rev(xs, List()).tail.head
-          
-          
         }
-      
     }
     
     def nth(n : Int, xs : List[Int]) : Int = {
@@ -67,6 +62,14 @@ class Lists
         }
         insertAtHelper(xs, 0)
     } 
+    
+    def removeAt(k : Int, xs : List[Int]) : List[Int] = {
+           def removeAtHelper(pos : Int, xs : List[Int]) : List[Int] = {
+               if(pos == k) xs.tail
+               else xs.head :: removeAtHelper(pos + 1, xs.tail)
+           }
+          removeAtHelper(0, xs)      
+    }
     
     
     def isPalindrome(xs : List[Int]) : Boolean = {
