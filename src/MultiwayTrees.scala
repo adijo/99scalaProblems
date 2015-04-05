@@ -18,6 +18,11 @@ class MultiwayTrees
       internalDepth(mtree, 0)
     }
     
+    def constructTree[T](chars : List[T]) : MTree[T] = {
+        
+      
+    }
+    
     
     def test() = {
       val g = new MTree('g', List())
