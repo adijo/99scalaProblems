@@ -2,7 +2,7 @@
 object Main {
  
   def main(args : Array[String]) : Unit = {
-      val lists = new MultiwayTrees()
-      lists.test()      
+      val ar = new Arithmetic();
+      println(ar.gcd(25, 5));
   }
 }

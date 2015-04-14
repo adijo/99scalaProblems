@@ -19,7 +19,7 @@ class MultiwayTrees
     }
     
     def constructTree[T](chars : List[T]) : MTree[T] = {
-        
+        null
       
     }
     
