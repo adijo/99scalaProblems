@@ -25,6 +25,18 @@ class Trees {
       }
   }
   
+  
+  def stringRepr[T](tree : Tree[T]) : String = {
+    
+     tree match {
+       case End => ""
+       case node : Node[T] =>
+         if(node.isLeaf()) node.getValue().toString()
+         else node.getValue().toString() + "(" + stringRepr(node.getLeft()) + "," + stringRepr(node.getRight()) + ")"
+     } 
+    
+  }
+  
   def leafList[T](tree : Tree[T]) : List[Tree[T]] = {
     
      tree match {
@@ -107,5 +119,19 @@ class Trees {
         }
         
       }
+  }
+  
+  
+  def test() = {
+    
+    val g = new Node("g", End, End)
+    val f = new Node("f", g, End)
+    val c = new Node("c", End, f)
+    val d = new Node("d", End, End)
+    val e = new Node("e", End, End)
+    val b = new Node("b", d, e)
+    val a = new Node("a", b, c)
+    println(stringRepr(a))
+    
   }
 }

@@ -24,6 +24,7 @@ class MultiwayTrees
     }
     
     
+    
     def test() = {
       val g = new MTree('g', List())
       val d = new MTree('d', List())
