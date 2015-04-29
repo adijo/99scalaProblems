@@ -25,16 +25,34 @@ class Trees {
       }
   }
   
+  def fromString(tree : String) : Tree[Char] = {
+    
+      if(tree.length() == 1) new Node(tree(0), End, End)
+      else {
+        
+          val start = 2
+          val end = tree.length() - 2
+          if(tree(start) == ',') new Node(tree(0), End, fromString(tree.substring(start + 1, end + 1)))
+          else {
+            
+              
+          }
+          
+      }
+    
+  }
+ 
+  
   
   def stringRepr[T](tree : Tree[T]) : String = {
-    
      tree match {
        case End => ""
        case node : Node[T] =>
          if(node.isLeaf()) node.getValue().toString()
-         else node.getValue().toString() + "(" + stringRepr(node.getLeft()) + "," + stringRepr(node.getRight()) + ")"
+         else node.getValue().toString() + 
+         "(" + stringRepr(node.getLeft()) + "," + 
+         stringRepr(node.getRight()) + ")"
      } 
-    
   }
   
   def leafList[T](tree : Tree[T]) : List[Tree[T]] = {
