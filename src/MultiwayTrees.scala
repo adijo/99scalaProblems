@@ -4,6 +4,8 @@ class MultiwayTrees
   case class MTree[+T](value: T, children: List[MTree[T]]) {
     def this(value: T) = this(value, List())
     override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
+    def isLeaf() : Boolean = children.isEmpty
+    def getValue() : T = value
 }
   
     def nodeCount[T](mtree : MTree[T]) : Int = {
@@ -23,6 +25,10 @@ class MultiwayTrees
       
     }
     
+    def lispyTree[T](mtree : MTree[T]) : String = {
+        if(mtree.isLeaf()) " " + mtree.getValue().toString()
+        else " ( " + mtree.getValue() + " " + mtree.children.map (x => lispyTree(x)).reduceLeft(_ + _) + " )" 
+    }
     
     
     def test() = {
@@ -34,7 +40,7 @@ class MultiwayTrees
       val b = new MTree('b', List(d, e))
       val a = new MTree('a', List(f, c, b))
       
-      println(internalPathLength(a))
+      println(lispyTree(a))
       
     }
 }

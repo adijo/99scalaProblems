@@ -24,6 +24,7 @@ class Trees {
         
       }
   }
+  /*
   
   def fromString(tree : String) : Tree[Char] = {
     
@@ -42,6 +43,8 @@ class Trees {
     
   }
  
+  */
+  
   
   
   def stringRepr[T](tree : Tree[T]) : String = {
