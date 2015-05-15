@@ -218,6 +218,24 @@ class Lists
         msort[List[Int]](xs, (x, y) => x.length < y.length)      
     }
     
+    def splitter(x : Int, xs : List[Int], acc : List[Int]) : (List[Int], List[Int]) = {
+        xs match {
+          case Nil => (acc.reverse, Nil)
+          case a :: xs1 =>
+               if (a > x) (acc.reverse, a :: xs1)
+               else splitter(x, xs1, a :: acc)
+        }
     
+    }                                 
+  
+    def validBST(xs : List[Int]) : Boolean = {
+        xs match {
+          case Nil => true
+          case x :: xs1 =>
+              val (smaller, greater) = splitter(x, xs1, List())
+              if(smaller.forall{_  <= x} && greater.forall{_ > x}) validBST(smaller) && validBST(greater)
+              else false
+        }
+    }   
 
 }

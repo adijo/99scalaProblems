@@ -30,7 +30,6 @@ class MultiwayTrees
         else " ( " + mtree.getValue() + " " + mtree.children.map (x => lispyTree(x)).reduceLeft(_ + _) + " )" 
     }
     
-    
     def test() = {
       val g = new MTree('g', List())
       val d = new MTree('d', List())
