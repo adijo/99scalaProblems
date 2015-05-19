@@ -218,6 +218,11 @@ class Lists
         msort[List[Int]](xs, (x, y) => x.length < y.length)      
     }
     
+    /*
+     * 
+     * Extra random stuff.
+     */
+    
     def splitter(x : Int, xs : List[Int], acc : List[Int]) : (List[Int], List[Int]) = {
         xs match {
           case Nil => (acc.reverse, Nil)
@@ -237,5 +242,17 @@ class Lists
               else false
         }
     }   
+    
+    def deepReverse(xs : List[Any]) : List[Any] = {
+      
+        xs match {
+          case Nil => Nil
+          case x :: xs1 =>
+              x match {
+                case _ : Int => deepReverse(xs1) ++ List(x)
+                case y : List[Any] => deepReverse(xs1) ++ List(deepReverse(y))
+              }
+        }
+    }
 
 }
