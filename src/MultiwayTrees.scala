@@ -1,3 +1,4 @@
+import scala.collection.mutable.ListBuffer
 class MultiwayTrees 
 {
   
@@ -6,6 +7,7 @@ class MultiwayTrees
     override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
     def isLeaf() : Boolean = children.isEmpty
     def getValue() : T = value
+    
 }
   
     def nodeCount[T](mtree : MTree[T]) : Int = {
@@ -30,16 +32,30 @@ class MultiwayTrees
         else " ( " + mtree.getValue() + " " + mtree.children.map (x => lispyTree(x)).reduceLeft(_ + _) + " )" 
     }
     
+    def fromString(mtree : List[Char]) : MTree[Char] = {
+        var ptr = 1
+        def fromStringHelper(node : MTree[Char]) : MTree[Char] = {
+            var flag = true
+            var children = ListBuffer[MTree[Char]]()
+            while (flag) {
+                if(ptr >= mtree.length || mtree(ptr) == '^') flag = false
+                else {
+                    ptr = ptr + 1
+                    children += fromStringHelper(new MTree(mtree(ptr - 1)))
+                }
+            }
+            ptr = ptr + 1
+            new MTree(node.getValue(), children.toList)
+            
+        }
+      fromStringHelper(new MTree(mtree(0)))
+     
+    }
+    
     def test() = {
-      val g = new MTree('g', List())
-      val d = new MTree('d', List())
-      val e = new MTree('e', List())
-      val f = new MTree('f', List(g))
-      val c = new MTree('c', List())
-      val b = new MTree('b', List(d, e))
-      val a = new MTree('a', List(f, c, b))
       
-      println(lispyTree(a))
+      val mtree = "afg^^c^bd^e^^^".toList
+      print(lispyTree(fromString(mtree)))
       
     }
 }
