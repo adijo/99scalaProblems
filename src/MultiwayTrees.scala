@@ -52,10 +52,21 @@ class MultiwayTrees
      
     }
     
+    def postorder(mtree : List[Char]) : List[Char] = {
+      
+        def postorderHelper(mtree : MTree[Char]) : List[Char] = {
+              if(mtree.isLeaf()) List(mtree.getValue())
+              else {
+                  val order = for(child <- mtree.children) yield postorderHelper(child)
+                  order.flatten ++ List(mtree.getValue())
+              }
+        }
+        postorderHelper(fromString(mtree))      
+    }
+    
     def test() = {
       
       val mtree = "afg^^c^bd^e^^^".toList
-      print(lispyTree(fromString(mtree)))
-      
+      println(postorder(mtree))
     }
 }
