@@ -71,6 +71,18 @@ class Lists
           removeAtHelper(0, xs)      
     }
     
+    def randomSelect(k : Int, xs : List[Int]) : List[Int] = {
+            
+            
+            def randHelper(k : Int, xs : List[Int]) : List[Int] = {
+              if(k == 0) xs
+            else randHelper(k - 1, removeAt(scala.util.Random.nextInt(xs.length), xs))
+              
+            }
+            
+            randHelper(xs.length - k, xs)
+    }
+    
     
     def isPalindrome(xs : List[Int]) : Boolean = {
       
