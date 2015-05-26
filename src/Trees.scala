@@ -114,6 +114,19 @@ class Trees {
       }
   }
   
+  def layout[T](tree : Tree[T]) : List[((T, Int), Int)] = {
+        def layoutHelper[T](tree : Tree[T], depth : Int) : List[(T, Int)]= {
+              tree match {
+                case End => Nil
+                case (node : Node[T]) =>
+                  layoutHelper[T](node.getLeft(), depth + 1) ++ List((node.getValue(), depth)) ++ 
+                  layoutHelper[T](node.getRight(), depth + 1)
+              }
+        }
+    val answer = layoutHelper(tree, 0)
+    answer zip (1 until answer.length + 1)
+  }
+  
   /*
    *  Returns a forest of completely balanced binary trees. 
    */
@@ -152,7 +165,7 @@ class Trees {
     val e = new Node("e", End, End)
     val b = new Node("b", d, e)
     val a = new Node("a", b, c)
-    println(stringRepr(a))
+    println(layout(a))
     
   }
 }
