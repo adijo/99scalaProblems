@@ -1,4 +1,4 @@
-
+import scala.annotation.tailrec
 class Lists 
 {
   
@@ -67,6 +67,17 @@ class Lists
            def removeAtHelper(pos : Int, xs : List[Int]) : List[Int] = {
                if(pos == k) xs.tail
                else xs.head :: removeAtHelper(pos + 1, xs.tail)
+           }
+          removeAtHelper(0, xs)      
+    }
+    
+    def removeAtAndRet(k : Int, xs : List[Int]) : (Int, List[Int]) = {
+           def removeAtHelper(pos : Int, xs : List[Int]) : (Int, List[Int]) = {
+               if(pos == k) (xs.head, xs.tail)
+               else {
+                  val res = removeAtHelper(pos + 1, xs.tail)
+                  (res._1, xs.head :: res._2)
+               }
            }
           removeAtHelper(0, xs)      
     }
@@ -222,6 +233,20 @@ class Lists
           merge(msort(one, less), msort(two, less), less) 
           
         }
+    }
+    
+    def lotto(start : Int, end : Int, n : Int) : List[Int] = {
+      
+        @tailrec
+        def lottoHelper(xs : List[Int], n : Int, acc : List[Int]) : List[Int] = {
+            if(n == 0) acc.reverse
+            else {
+              val k = scala.util.Random.nextInt(xs.length)
+              val (removed, remaining) = removeAtAndRet(k, xs)
+              lottoHelper(remaining, n - 1, removed :: acc)
+            }
+        }
+        lottoHelper(range(start, end + 1), n, List())
     }
       
     
